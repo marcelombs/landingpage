@@ -17,13 +17,21 @@ la especificación cambia.
         `nudo_app` sobre la base `nudo_landing`.
     -   **Terminado cuando:** las decisiones técnicas están registradas
         y no hay dudas bloqueantes.
--   [ ] **T-002. Validar contenido comercial**
+-   [x] **T-002. Validar contenido comercial** *(completada 2026-10-09)*
     -   Confirmar nombres, precios, promoción, puntos de entrega,
         teléfono y redes.
     -   Marcar claramente como demostración cualquier dato ficticio.
-    -   **Estado:** pendiente de aprobación del responsable. Todo el
-        contenido derivado del diseño de referencia se tratará como
-        demostración hasta entonces (ver `docs/spec.md` §13).
+    -   **Decisión del responsable (2026-10-09):** el contenido del
+        diseño de referencia (nombres, precios Bs 119/89/139/95/139/99,
+        promoción -20%, puntos de entrega) queda aprobado como
+        **contenido de demostración académica**.
+    -   **Teléfono de prueba WhatsApp:** `+591 72590219`
+        (`WHATSAPP_NUMBER=59172590219`, `WHATSAPP_ENABLED=true` en
+        `.env`). Es un número de prueba: verificar antes de publicar
+        como real.
+    -   **Redes sociales:** sin perfiles confirmados → no se muestran
+        enlaces en el pie de página (RF-05/constitución: no publicar
+        destinos ficticios).
     -   **Terminado cuando:** existe un conjunto de contenido autorizado
         para la versión académica.
 -   [x] **T-003. Preparar repositorio** *(completada 2026-10-09)*
