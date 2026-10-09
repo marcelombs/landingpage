@@ -1,0 +1,43 @@
+### NUDO — Pruebas de API (Fase 1)
+### Ejecutar con VS Code + extensión REST Client, o con Bruno/Insomnia.
+
+### 1) Catálogo completo
+GET http://localhost:8000/api/products
+Accept: application/json
+
+### 2) Filtrar por categoría
+GET http://localhost:8000/api/products?category=chompas
+Accept: application/json
+
+### 3) Producto por id (válido — ajustar según seed)
+GET http://localhost:8000/api/products/1
+Accept: application/json
+
+### 4) Producto inexistente → esperado 404
+GET http://localhost:8000/api/products/999999
+Accept: application/json
+
+### 5) Contacto válido → esperado 201
+POST http://localhost:8000/api/contact
+Content-Type: application/json
+
+{
+  "name": "Ana Prueba",
+  "email": "ana@example.com",
+  "phone": "",
+  "subject": "Consulta sobre Chompa Siena",
+  "message": "¿Qué tallas están disponibles?",
+  "product_id": 1
+}
+
+### 6) Contacto inválido (sin medio de contacto) → esperado 422
+POST http://localhost:8000/api/contact
+Content-Type: application/json
+
+{
+  "name": "Sin Contacto",
+  "email": "",
+  "phone": "",
+  "subject": "Consulta",
+  "message": "Mensaje sin forma de respuesta."
+}
