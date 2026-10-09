@@ -83,12 +83,43 @@ nudo-landing/
    `DB_HOST` acepta `127.0.0.1` (TCP + contraseña) o la ruta del socket
    Unix (`/var/run/postgresql`) si la autenticación local es `peer`.
 
-4. **Esquema y datos de prueba:**
+4. **Esquema y datos de prueba** (desde cero), **o restaurar el backup** (ver más abajo):
 
    ```bash
    PGPASSWORD='...' psql -h 127.0.0.1 -U nudo_app -d nudo_landing -f database/schema.sql
    PGPASSWORD='...' psql -h 127.0.0.1 -U nudo_app -d nudo_landing -f database/seed.sql
    ```
+
+### Restaurar el backup en otra computadora
+
+El repositorio incluye un volcado completo (esquema + catálogo de
+demostración) en [`database/backups/nudo_landing.sql`](database/backups/nudo_landing.sql).
+
+1. Realizar los pasos 1–3 anteriores (clone, **crear el rol `nudo_app` y la
+   BD `nudo_landing`**, y `.env`).
+2. Restaurar como superuser de PostgreSQL (el dump re-crea la base y
+   asigna los objetos al dueño `nudo_app`):
+
+   ```bash
+   psql -U postgres -d postgres -f database/backups/nudo_landing.sql
+   ```
+
+3. Verificar:
+
+   ```bash
+   psql -U nudo_app -d nudo_landing -c "SELECT count(*) FROM products WHERE is_active;"
+   # → 6
+   ```
+
+> El backup contiene el esquema y los productos de demostración. Las
+> consultas de usuarios (`contact_messages`) no se incluyen a propósito.
+> Para regenerarlo:
+>
+> ```bash
+> pg_dump -h 127.0.0.1 -U nudo_app -d nudo_landing \
+>   --no-privileges --clean --if-exists --create \
+>   -f database/backups/nudo_landing.sql
+> ```
 
 5. **Ejecutar el servidor:**
 
