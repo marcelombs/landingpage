@@ -192,25 +192,35 @@ la especificación cambia.
 
 ## Fase 4 --- Adaptabilidad, accesibilidad y calidad
 
--   [ ] **T-025. Adaptar navegación móvil**
+-   [x] **T-025. Adaptar navegación móvil**
+    -   *(completada 2026-10-09)*
+    -   Verificación con Chrome headless (390px): menú abre/cierra, `aria-expanded` sincronizado, Escape cierra y devuelve el foco, elegir un enlace cierra; sin scroll horizontal con el menú abierto.
     -   Crear menú compacto operable y con estado accesible.
     -   **Verificación:** se abre, cierra y permite navegar por teclado
         y tacto.
--   [ ] **T-026. Probar puntos de ruptura**
+-   [x] **T-026. Probar puntos de ruptura**
+    -   *(completada 2026-10-09)*
+    -   Verificación automatizada en 360/390/768/1024/1440 px: `scrollWidth == viewport` en todos (sin desplazamiento horizontal); capturas en `tests/evidence/`.
     -   Revisar 360, 390, 768, 1024 y 1440 px.
     -   **Verificación:** no hay desplazamiento horizontal involuntario
         ni contenido superpuesto.
--   [ ] **T-027. Revisar accesibilidad**
+-   [x] **T-027. Revisar accesibilidad**
+    -   *(completada 2026-10-09)*
+    -   Verificación automatizada: 100% de imágenes con `alt`, campos con etiqueta asociada, ≥2 regiones `aria-live`, primer Tab enfoca el skip-link con foco visible.
     -   Comprobar etiquetas, textos alternativos, foco, contraste y
         mensajes de estado.
     -   **Verificación:** las acciones principales se pueden completar
         con teclado.
--   [ ] **T-028. Optimizar imágenes**
+-   [x] **T-028. Optimizar imágenes**
+    -   *(completada 2026-10-09)*
+    -   Verificación: AVIF (2.79 MB total para 14 imágenes), below-the-fold con `loading=lazy`, todas declaran `width/height` (sin CLS), hero con `fetchpriority=high` sin lazy.
     -   Comprimir imágenes, utilizar formatos modernos cuando sea
         posible y carga diferida.
     -   **Verificación:** imágenes nítidas, proporciones correctas y
         carga razonable.
--   [ ] **T-029. Revisar seguridad**
+-   [x] **T-029. Revisar seguridad**
+    -   *(completada 2026-10-09)*
+    -   Verificación: cabeceras `nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy` y CSP `default-src 'self'`; `/.env`, `/src/*`, `/database/*`, `/routes/*`, `/logs/*`, `/.git/*` responden 404; `/api/config` sin secretos; consultas parametrizadas y salida con `textContent` (E2E SQLi probado en Fase 1).
     -   Comprobar validación backend, consultas parametrizadas, salida
         escapada y ausencia de secretos.
     -   **Verificación:** las pruebas negativas no exponen errores

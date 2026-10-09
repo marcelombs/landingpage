@@ -13,6 +13,12 @@ declare(strict_types=1);
 
 $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
 
+// --- T-029: cabeceras de seguridad globales (RNF-04) ---
+header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: DENY');
+header('Referrer-Policy: strict-origin-when-cross-origin');
+header("Content-Security-Policy: default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; form-action 'self'; frame-ancestors 'none'");
+
 // Archivo estático existente bajo public/ → dejar que PHP lo sirva
 if ($path !== '/' && is_file(__DIR__ . $path)) {
     return false;
