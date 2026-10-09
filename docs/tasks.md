@@ -104,37 +104,53 @@ la especificación cambia.
 
 ## Fase 2 --- Maquetación visual
 
--   [ ] **T-012. Definir tokens visuales**
+-   [x] **T-012. Definir tokens visuales**
+    -   *(completada 2026-10-09)*
+    -   Verificación: `public/assets/css/styles.css` con tokens en `:root` (paleta navy/coral/crema/sky, escala fluida de tipografía, espaciado, radios, contenedores).
     -   Crear variables CSS para paleta, tipografía, espaciado, radios y
         contenedores.
     -   **Verificación:** colores y espacios principales se controlan
         desde una ubicación central.
--   [ ] **T-013. Construir encabezado y hero**
+-   [x] **T-013. Construir encabezado y hero**
+    -   *(completada 2026-10-09)*
+    -   Verificación: header sticky con logo NUDO, nav a secciones existentes (#ofertas…#contacto) y CTA 'Comprar ahora'; hero con imagen 2.avif, titular 'ABRIGA TU RITMO' y barra de beneficios; navegación y CTA apuntan a destinos válidos.
     -   Replicar la jerarquía visual de la referencia, logo, navegación
         y CTA.
     -   **Verificación:** navegación y CTA apuntan a destinos válidos.
--   [ ] **T-014. Construir sección de promoción**
+-   [x] **T-014. Construir sección de promoción**
+    -   *(completada 2026-10-09)*
+    -   Verificación: tarjeta -20% con fondo textil, combo Bs 189 y tarjeta de entrega gratis en sky; nota 'dato de demostración académica' visible; CTAs enlazan al catálogo y a ubicaciones.
     -   Mostrar oferta, producto destacado y condiciones.
     -   **Verificación:** la promoción se lee correctamente y el CTA
         funciona.
--   [ ] **T-015. Construir catálogo y tarjetas**
+-   [x] **T-015. Construir catálogo y tarjetas**
+    -   *(completada 2026-10-09)*
+    -   Verificación: cabecera con filtros Todos/Chompas/Bicles (aria-pressed), cuadrícula de 3 columnas (2 en tablet, 1 en móvil), estados de carga/vacío/error preparados (`aria-live`) y marcado de producto; el render con datos de la API es T-020/T-021.
     -   Crear estructura visual de tarjeta con imagen, nombre,
         categoría, precio y acción.
     -   **Verificación:** la cuadrícula se ajusta al ancho disponible.
--   [ ] **T-016. Construir sección de identidad de marca**
+-   [x] **T-016. Construir sección de identidad de marca**
+    -   *(completada 2026-10-09)*
+    -   Verificación: sección navy con textura 9.avif, badge '100% tejido con propósito', título 'SE SIENTE DIFERENTE' y stats 02/04/08 con jerarquía correcta en móvil y escritorio.
     -   Incorporar imagen textil, título y texto breve.
     -   **Verificación:** imagen y texto mantienen la jerarquía visual
         en móvil y escritorio.
--   [ ] **T-017. Construir galería**
+-   [x] **T-017. Construir galería**
+    -   *(completada 2026-10-09)*
+    -   Verificación: mosaico de 5 imágenes (10, 2, 12, 1, 7) con columna alta en escritorio; en móvil se reorganiza sin deformar; alt descriptivo en todas (12 incluye El Alto).
     -   Implementar mosaico en escritorio y distribución adaptable en
         móvil.
     -   **Verificación:** las imágenes no se deforman y tienen
         tratamiento alternativo adecuado.
--   [ ] **T-018. Construir sección de ubicaciones**
+-   [x] **T-018. Construir sección de ubicaciones**
+    -   *(completada 2026-10-09)*
+    -   Verificación: 4 tarjetas (Faro Murillo, Infocal, Cruce Villa Adela, Correos LP) con zona y detalle; nota de demostración académica; datos centralizados en el HTML (sin duplicar en JS).
     -   Mostrar tarjetas de puntos de entrega configurados.
     -   **Verificación:** cada tarjeta presenta datos consistentes y
         acciones válidas.
--   [ ] **T-019. Construir CTA final y pie de página**
+-   [x] **T-019. Construir CTA final y pie de página**
+    -   *(completada 2026-10-09)*
+    -   Verificación: CTA coral 'HABLEMOS DE TU PRÓXIMA FAVORITA' + botón flotante WhatsApp que aparece solo si `/api/config` reporta número habilitado; footer navy con marca, contacto (teléfono desde configuración), navegación y año dinámico; sin enlaces a redes ficticias.
     -   Incorporar contacto, redes y enlaces de navegación.
     -   **Verificación:** ningún enlace queda vacío o roto.
 
@@ -159,7 +175,9 @@ la especificación cambia.
     -   Gestionar errores de validación, carga, éxito y error de red.
     -   **Verificación:** la confirmación aparece solo después del éxito
         del servidor.
--   [ ] **T-024. Configurar WhatsApp y enlaces externos**
+-   [x] **T-024. Configurar WhatsApp y enlaces externos**
+    -   *(completada 2026-10-09)*
+    -   Verificación: destino WhatsApp centralizado en `.env` y servido por `GET /api/config` (RF-06); `app.js` actualiza botones y footer desde esa única fuente; sin números ficticios publicados.
     -   Centralizar destinos en configuración.
     -   **Verificación:** los botones abren los destinos correctos y no
         hay números ficticios publicados.
