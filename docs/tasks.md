@@ -156,21 +156,29 @@ la especificación cambia.
 
 ## Fase 3 --- Integración frontend-backend
 
--   [ ] **T-020. Integrar carga dinámica del catálogo**
+-   [x] **T-020. Integrar carga dinámica del catálogo**
+    -   *(completada 2026-10-09)*
+    -   Verificación: `catalog.js` solicita `GET /api/products` con `fetch` y renderiza tarjetas con `textContent` (sin innerHTML); modificar un producto en la BD cambia el catálogo mostrado; estados de carga/vacío/error implementados.
     -   Consumir `GET /api/products` con `fetch`.
     -   Renderizar datos del servidor.
     -   **Verificación:** modificar los datos de la base de datos cambia
         el catálogo mostrado.
--   [ ] **T-021. Integrar filtros**
+-   [x] **T-021. Integrar filtros**
+    -   *(completada 2026-10-09)*
+    -   Verificación: clic en Chompas/Bicles envía `?category=` al servidor, actualiza `aria-pressed` y re-renderiza; peticiones anteriores se abortan con AbortController; 'Todos' restaura el catálogo completo.
     -   Conectar filtros con la API y representar categoría activa.
     -   **Verificación:** los resultados coinciden con la categoría
         seleccionada.
--   [ ] **T-022. Integrar detalle/consulta de producto**
+-   [x] **T-022. Integrar detalle/consulta de producto**
+    -   *(completada 2026-10-09)*
+    -   Verificación: 'Consultar →' en una tarjeta preselecciona `product_id` en el formulario, precarga asunto/mensaje, desplaza y enfoca; el id enviado se valida en backend (422 si no existe).
     -   Permitir ver información disponible o preseleccionar el producto
         en el formulario.
     -   **Verificación:** el producto asociado enviado a la API es
         válido y se verifica en backend.
--   [ ] **T-023. Integrar formulario de contacto**
+-   [x] **T-023. Integrar formulario de contacto**
+    -   *(completada 2026-10-09)*
+    -   Verificación: validación cliente con errores por campo (`aria-invalid`); envío JSON a `POST /api/contact`; confirmación solo tras `201`; `422` pinta errores del servidor; `429` y fallo de red informan y permiten reintento; botón deshabilitado durante el envío (sin doble envío); honeypot incluido.
     -   Enviar JSON a `POST /api/contact`.
     -   Gestionar errores de validación, carga, éxito y error de red.
     -   **Verificación:** la confirmación aparece solo después del éxito
