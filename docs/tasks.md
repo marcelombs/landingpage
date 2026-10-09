@@ -43,17 +43,23 @@ la especificación cambia.
 
 ## Fase 1 --- Base de datos y backend
 
--   [ ] **T-004. Crear esquema de datos**
+-   [x] **T-004. Crear esquema de datos**
+    -   *(completada 2026-10-09)*
+    -   Verificación: `schema.sql` aplicado a `nudo_landing` con `psql -v ON_ERROR_STOP=1`; tablas, índices y trigger `updated_at` creados.
     -   Crear `products` y `contact_messages`.
     -   Definir tipos, claves, restricciones y marcas de tiempo.
     -   **Verificación:** se puede crear la base de datos en PostgreSQL
         desde `database/schema.sql` (por ejemplo, con `psql -f`).
--   [ ] **T-005. Cargar datos iniciales**
+-   [x] **T-005. Cargar datos iniciales**
+    -   *(completada 2026-10-09)*
+    -   Verificación: 6 productos activos (Chompas: Siena/Terracota/Paramo; Bicles: Nube/Linea/Moka) + 1 inactivo de prueba; consulta SQL devuelve el catálogo esperado.
     -   Insertar productos de demostración, categorías, precios e
         imágenes válidas.
     -   **Verificación:** la consulta SQL devuelve los productos activos
         esperados.
--   [ ] **T-006. Configurar estructura PHP y conexión segura**
+-   [x] **T-006. Configurar estructura PHP y conexión segura**
+    -   *(completada 2026-10-09)*
+    -   Verificación: autoload `Nudo\` sin Composer; `.env` leído; PDO con `ERRMODE_EXCEPTION` y `EMULATE_PREPARES=false`; `/api/*` llega a `public/api.php` vía `router.php`; sin credenciales incrustadas.
     -   Crear el autoload, el lector de `.env`, el front controller
         (`public/api.php`) y el enrutador mínimo.
     -   Leer credenciales desde variables de entorno.
@@ -61,26 +67,36 @@ la especificación cambia.
     -   **Verificación:** la aplicación conecta a PostgreSQL, las rutas
         `/api/*` llegan al front controller y no hay credenciales
         incrustadas.
--   [ ] **T-007. Implementar `GET /api/products`**
+-   [x] **T-007. Implementar `GET /api/products`**
+    -   *(completada 2026-10-09)*
+    -   Verificación: `GET /api/products` → 200 con JSON `data[]`; `?category=chompas|bicles` filtra correctamente; categoría con caracteres raros → 400; lista vacía → `data: []`.
     -   Devolver productos activos en JSON.
     -   Aceptar filtro por categoría.
     -   **Verificación:** pruebas para lista completa, filtro y lista
         vacía.
--   [ ] **T-008. Implementar `GET /api/products/{id}`**
+-   [x] **T-008. Implementar `GET /api/products/{id}`**
+    -   *(completada 2026-10-09)*
+    -   Verificación: id válido → 200; id inexistente o inactivo → 404; id no numérico → 400.
     -   Consultar producto individual y manejar ID inexistente.
     -   **Verificación:** devuelve `200` o `404` según corresponda.
--   [ ] **T-009. Implementar validación del contacto**
+-   [x] **T-009. Implementar validación del contacto**
+    -   *(completada 2026-10-09)*
+    -   Verificación: sin medio de contacto → 422 (`errors.contact`); email inválido → 422; `product_id` inexistente → 422 (`errors.product_id`). Corregido bug: `product_id` llegaba como número JSON y se descartaba.
     -   Validar nombre, mensaje, longitud y al menos un medio de
         contacto.
     -   Validar el producto asociado cuando se proporcione.
     -   **Verificación:** entradas inválidas reciben `422` y no se
         persisten.
--   [ ] **T-010. Implementar `POST /api/contact`**
+-   [x] **T-010. Implementar `POST /api/contact`**
+    -   *(completada 2026-10-09)*
+    -   Verificación: solicitud válida → `201 Created` con `data.id`; registro confirmado en `contact_messages` vía psql; errores 500 sin detalles internos (log en `logs/error.log`).
     -   Guardar consultas y devolver `201 Created`.
     -   Manejar errores sin revelar detalles internos.
     -   **Verificación:** el registro existe en la base de datos después
         de una solicitud válida.
--   [ ] **T-011. Añadir protección básica contra abuso**
+-   [x] **T-011. Añadir protección básica contra abuso**
+    -   *(completada 2026-10-09)*
+    -   Verificación: honeypot `website` → 201 falso sin persistir; límite 3 envíos / 10 min por `ip_hash` (SHA-256) → 4º envío responde 429; SQLi/XSS en campos se almacenan como texto literal sin ejecutarse.
     -   Evitar doble envío en la interfaz y considerar honeypot o
         limitación de frecuencia en backend.
     -   **Verificación:** los envíos anómalos se rechazan o gestionan de
