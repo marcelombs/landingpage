@@ -29,18 +29,18 @@ nudo-landing/
 ├── public/               # Única carpeta publicada por el servidor web
 │   ├── index.html
 │   ├── api.php           # Front controller de la API (/api/*)
-│   ├── router.php        # Router del servidor integrado php -S
-│   └── assets/           # css, js e imágenes
+│   ├── router.php        # Router del servidor integrado php -S (+ cabeceras de seguridad)
+│   └── assets/           # css, js, imágenes AVIF y favicon
 ├── src/                  # Código PHP (sin acceso HTTP directo)
 │   ├── Config/           # Env.php, Database.php
-│   ├── Controllers/
+│   ├── Controllers/      # Product, Contact, Config
 │   ├── Services/
 │   ├── Repositories/
 │   ├── Validators/
-│   └── Support/          # Router.php, JsonResponse.php
+│   └── Support/          # Router.php, JsonResponse.php, Logger.php
 ├── routes/api.php        # Definición de rutas
 ├── database/             # schema.sql y seed.sql
-├── tests/                # Pruebas de API y checklist de aceptación
+├── tests/                # Baterías, checklist y evidencias
 ├── docs/                 # Especificaciones SDD y diseño de referencia
 ├── .env.example          # Plantilla de configuración (sin secretos)
 └── .env                  # Configuración local (no versionado)
@@ -52,53 +52,95 @@ nudo-landing/
 - PostgreSQL 14+ (probado con 16).
 - Git.
 
-## Configuración local
+## Instalación paso a paso
 
-1. **Base de datos** (una sola vez):
-
-   ```bash
-   # Crear rol de aplicación y base de datos (como superuser de PostgreSQL)
-   createuser nudo_app            # con contraseña
-   createdb nudo_landing -O nudo_app
-   ```
-
-2. **Variables de entorno:**
+1. **Clonar el repositorio:**
 
    ```bash
-   cp .env.example .env           # y completar DB_* y valores reales
+   git clone https://github.com/marcelombs/landingpage.git
+   cd landingpage
    ```
 
-3. **Esquema y datos de prueba** (Fase 1):
+2. **Crear el rol de aplicación y la base de datos** (como superuser de PostgreSQL):
 
    ```bash
-   psql -U nudo_app -d nudo_landing -f database/schema.sql
-   psql -U nudo_app -d nudo_landing -f database/seed.sql
+   psql -U postgres
    ```
 
-4. **Ejecutar:**
+   ```sql
+   CREATE ROLE nudo_app LOGIN PASSWORD 'una_contraseña_segura';
+   CREATE DATABASE nudo_landing OWNER nudo_app;
+   ```
+
+3. **Variables de entorno:**
+
+   ```bash
+   cp .env.example .env
+   # Editar .env: DB_HOST, DB_NAME=nudo_landing, DB_USER=nudo_app, DB_PASSWORD
+   # y WHATSAPP_* / redes según corresponda
+   ```
+
+   `DB_HOST` acepta `127.0.0.1` (TCP + contraseña) o la ruta del socket
+   Unix (`/var/run/postgresql`) si la autenticación local es `peer`.
+
+4. **Esquema y datos de prueba:**
+
+   ```bash
+   PGPASSWORD='...' psql -h 127.0.0.1 -U nudo_app -d nudo_landing -f database/schema.sql
+   PGPASSWORD='...' psql -h 127.0.0.1 -U nudo_app -d nudo_landing -f database/seed.sql
+   ```
+
+5. **Ejecutar el servidor:**
 
    ```bash
    php -S localhost:8000 -t public public/router.php
    ```
 
-   La API queda disponible en `http://localhost:8000/api/products`.
+   - Sitio: `http://localhost:8000`
+   - API: `http://localhost:8000/api/products`
 
 ## Endpoints
 
 | Método | Ruta | Descripción |
 |---|---|---|
-| GET | `/api/products` | Productos activos, con filtro opcional `?category=` |
-| GET | `/api/products/{id}` | Producto individual |
-| POST | `/api/contact` | Registra una consulta (`201 Created`) |
+| GET | `/api/products` | Productos activos, filtro opcional `?category=chompas\|bicles` |
+| GET | `/api/products/{id}` | Producto individual (`404` si no existe o está inactivo) |
+| POST | `/api/contact` | Registra una consulta (`201`; `422` validación; `429` límite de frecuencia) |
+| GET | `/api/config` | Configuración pública (WhatsApp, redes); nunca expone secretos |
 
 El contrato completo está en [`docs/spec.md`](docs/spec.md) §8.
 
+## Pruebas
+
+```bash
+# Batería de API (27 controles) → tests/evidence/api-tests.md
+bash tests/api-tests.sh
+
+# Interfaz y aceptación (requiere Chrome/Chromium y npm i playwright-core)
+node tests/ui/ui-test.js        # T-025..T-028: responsive, menú, a11y, imágenes
+node tests/ui/acceptance.js     # CA-01..CA-10 + CP-10/12 con evidencias
+```
+
+El checklist manual completo está en
+[`tests/acceptance-checklist.md`](tests/acceptance-checklist.md) y las
+evidencias (capturas, JSON de red, persistencia) en
+[`tests/evidence/`](tests/evidence/).
+
 ## Contenido de demostración
 
-Precios, promociones, ubicaciones y datos de contacto en el seed son
-**datos de demostración académica** hasta que el responsable confirme
-contenido real (ver `docs/spec.md` §13).
+Precios, promociones, ubicaciones y estadísticas de marca derivan del
+diseño de referencia y están aprobados como **contenido de demostración
+académica** (T-002). El número de WhatsApp (`+591 7259 0219`) es de
+prueba: verificar antes de publicar como real. No se muestran redes
+sociales porque no hay perfiles confirmados.
 
-## Estado del proyecto
+## Arquitectura en una mirada
 
-Avance del backlog en [`docs/tasks.md`](docs/tasks.md).
+```text
+Navegador (HTML/CSS/JS) --fetch JSON--> public/api.php
+    → routes/api.php → Controller → Validator/Service → Repository
+    → PDO (consultas preparadas) → PostgreSQL
+```
+
+Los errores internos se registran en `logs/error.log` (fuera del alcance
+web) y jamás se devuelven al cliente.

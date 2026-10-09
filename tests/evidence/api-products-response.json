@@ -1,0 +1,9 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "http://localhost:8000/api/products",
+    "status": 200,
+    "bodyPreview": "{\"data\":[{\"id\":1,\"name\":\"Chompa Siena\",\"category\":\"chompas\",\"price\":119,\"currency\":\"BOB\",\"image_url\":\"/assets/images/3.avif\",\"short_description\":\"Chompa tejida de corte cruzado, ideal para el frío del altiplano.\"},{\"id\":2,\"name\":\"Bicle Nube\",\"category\":\"bicles\",\"price\":89,\"currency\":\"BOB\",\"image_url\":\"/assets/images/4.avif\",\"short_description\":\"Bicolores a manga corta con vivos verde y rojo.\"},{\"id\":3,\"name\":\"Chompa Terracota\",\"category\":\"chompas\",\"price\":139,\"currency\":\"BOB\",\"image_url\":\"/asset"
+  },
+  "note": "bodyPreview truncado a 500 chars"
+}

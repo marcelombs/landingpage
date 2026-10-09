@@ -1,0 +1,2 @@
+Excepciones JS no capturadas: (ninguna)
+Mensajes de red esperados (abort/422/404 provocados por las pruebas): 3

@@ -1,0 +1,9 @@
+{
+  "status": 201,
+  "body": {
+    "message": "Tu consulta fue registrada correctamente.",
+    "data": {
+      "id": 1
+    }
+  }
+}

@@ -1,0 +1,11 @@
+# Evidencia de persistencia — T-032 (2026-10-09T15:17:03-04:00)
+
+Consulta enviada desde el navegador (Chromium headless, criterio CA-06):
+
+ id |             name             |    email     |       subject       |                          message                           | product_id | producto_referenciado | status |          created_at           
+----+------------------------------+--------------+---------------------+------------------------------------------------------------+------------+-----------------------+--------+-------------------------------
+  1 | CA Seis                      | ca06@test.bo | Consulta aceptación | Mensaje válido para el criterio de aceptación seis.        |          1 | Chompa Siena          | new    | 2026-10-09 15:16:36.273952-04
+  2 | <img src=x onerror=alert(1)> | xss@test.bo  | <b>bold</b>         | Texto con <script>alert(1)</script> para comprobar escape. |            |                       | new    | 2026-10-09 15:16:36.390277-04
+(2 rows)
+
+Conteo total de consultas persistidas: 2

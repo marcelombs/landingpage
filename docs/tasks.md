@@ -228,25 +228,35 @@ la especificación cambia.
 
 ## Fase 5 --- Pruebas y entrega
 
--   [ ] **T-030. Ejecutar pruebas de API**
+-   [x] **T-030. Ejecutar pruebas de API**
+    -   *(completada 2026-10-09)*
+    -   Verificación: `tests/api-tests.sh` — 27/27 controles (lista, filtros, vacío, 404/400/405, contacto 201/422/400/429, honeypot, SQLi, secretos vía web 404). Reporte: `tests/evidence/api-tests.md`.
     -   Probar todos los endpoints y códigos HTTP documentados.
     -   **Verificación:** casos válidos e inválidos producen respuestas
         esperadas.
--   [ ] **T-031. Ejecutar pruebas de extremo a extremo**
+-   [x] **T-031. Ejecutar pruebas de extremo a extremo**
+    -   *(completada 2026-10-09)*
+    -   Verificación: `tests/ui/acceptance.js` — 15/15 controles CA-01..CA-10, CP-09, CP-10, CP-11 y CP-12 en Chromium headless; checklist completo en `tests/acceptance-checklist.md`.
     -   Recorrer navegación, catálogo, filtros, contacto y enlaces.
     -   **Verificación:** se cumplen los criterios CA-01 a CA-10 de
         `spec.md`.
--   [ ] **T-032. Verificar persistencia**
+-   [x] **T-032. Verificar persistencia**
+    -   *(completada 2026-10-09)*
+    -   Verificación: envío desde navegador → filas reales en `contact_messages` con producto referenciado; evidencia `tests/evidence/persistence.txt`.
     -   Enviar un formulario y comprobar el registro en la base de
         datos.
     -   **Verificación:** existe evidencia de que el dato persistió
         realmente.
--   [ ] **T-033. Preparar documentación de instalación**
+-   [x] **T-033. Preparar documentación de instalación**
+    -   *(completada 2026-10-09)*
+    -   Verificación: README con requisitos, instalación paso a paso (rol, BD, .env, schema/seed, servidor), endpoints, pruebas y notas de contenido demo; otra persona puede ejecutar el proyecto siguiéndolo.
     -   Documentar requisitos (PHP 8.2+ con `pdo_pgsql` y PostgreSQL), variables de entorno, creación de base de
         datos, ejecución y pruebas.
     -   **Verificación:** otra persona puede ejecutar el proyecto
         siguiendo el README.
--   [ ] **T-034. Preparar evidencias académicas**
+-   [x] **T-034. Preparar evidencias académicas**
+    -   *(completada 2026-10-09)*
+    -   Evidencias: capturas 360/768/1440 y menú móvil (`tests/evidence/*.png`), log de red y JSON de API (`network-log.json`, `contact-201.json`, `contact-422.json`, `api-tests.md`), persistencia (`persistence.txt`) y consola limpia (`console-errors.txt`).
     -   Capturas de escritorio/móvil, solicitudes de red, JSON de API y
         registro persistido.
     -   **Verificación:** las evidencias demuestran diseño responsive,

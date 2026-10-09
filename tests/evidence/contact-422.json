@@ -1,0 +1,23 @@
+{
+  "invalid": {
+    "status": 422,
+    "body": {
+      "message": "La solicitud contiene datos inválidos.",
+      "errors": {
+        "name": "El nombre es obligatorio.",
+        "subject": "El motivo de consulta es obligatorio.",
+        "message": "El mensaje es obligatorio.",
+        "contact": "Indica al menos un medio de contacto: correo electrónico o teléfono."
+      }
+    }
+  },
+  "badProduct": {
+    "status": 422,
+    "body": {
+      "message": "La solicitud contiene datos inválidos.",
+      "errors": {
+        "product_id": "El producto indicado no existe o no está disponible."
+      }
+    }
+  }
+}
